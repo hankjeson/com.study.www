@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    default-autowire="byName"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+       
+       <!-- 引入文件的方式 -->
+    <bean id="config" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+        <property name="location">
+            <value>c3p0.properties</value><!-- 引入一个的时候 -->
+        </property>
+    </bean>
+    <!--<context:property-placeholder location="classpath*:c3p0.properties"></context:property-placeholder>-->
+
+
+    <!-- 配置你的数据源 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass">
+            <value>${jdbc.driverClassName}</value>
+        </property>
+
+        <property name="jdbcUrl">
+            <value>${jdbc.url}</value>
+        </property>
+
+        <property name="user">
+            <value>${jdbc.username}</value>
+        </property>
+
+        <property name="password">
+            <value>${jdbc.password}</value>
+        </property>
+    </bean>
+    
+    
+    <!-- 利用jdbc的jdbcTemplate 来直接操作你的数据库 -->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    
+    <!--进行你的注入jdbctemplete  -->
+    <bean id="daoImpl" class="com.zjj.JDBC.dao.DaoImpl">
+    <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+    
+    
+     <bean id="serviceImpl" class="com.zjj.JDBC.service.ServiceImpl">
+    <property name="daoImplservice" ref="daoImpl" ></property>
+    </bean> 
+    
+    
+    
+
+    
+    
+       <!-- 配置事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+
+    <!---配置通知-->
+    
+
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!-- 必须要进行事务的 -->
+            <tx:method name="add*" propagation="REQUIRED"/>
+            <tx:method name="del*" propagation="REQUIRED"/>
+            <tx:method name="insert*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <!--如果当前没有事务，就以非事务方式执行。  -->
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+
+
+    <!-- 配置切面aop 对service进行切面管理，也就是所有的service中的所有方法的，所有属性进行事务管理-->
+  <aop:config>
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.sp.db.jdbctemp.service.*.*(..))"/>
+    </aop:config>
+    
+    
+
+       
+       
+       </beans>
