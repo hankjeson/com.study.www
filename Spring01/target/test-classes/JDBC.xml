@@ -54,13 +54,20 @@
      <bean id="serviceImpl" class="com.zjj.JDBC.service.ServiceImpl">
     <property name="daoImplservice" ref="daoImpl" ></property>
     </bean> 
+    
+    
+    
 
+    
+    
        <!-- 配置事务管理器 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"></property>
     </bean>
 
+
     <!---配置通知-->
+    
 
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
@@ -76,9 +83,15 @@
         </tx:attributes>
     </tx:advice>
 
+
+
     <!-- 配置切面aop 对service进行切面管理，也就是所有的service中的所有方法的，所有属性进行事务管理-->
   <aop:config>
         <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.zjj.JDBC.service.*.*(..))"/>
     </aop:config>
+    
+    
 
+       
+       
        </beans>

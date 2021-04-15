@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!--主流业务的注入  -->
+    <bean id="serviceTargetImpl" class="com.zjj.testAOP.ServiceTargetImpl">
+        <property name="name" value="谢吉星"></property>
+        <property name="a" value="2018220255"></property>
+        <property name="b" value="258"></property>
+    </bean>
+
+    <!-- 配置通知 -->
+
+    <bean id="beforeAdvice" class="com.zjj.testAOP.BeforeAdvice"></bean>
+    <bean id="afterAdvice" class="com.zjj.testAOP.AfterAdvice"></bean>
+    <bean id="aroundAdivce" class="com.zjj.testAOP.AroundAdivce"></bean>
+    <bean id="throwAdivce" class="com.zjj.testAOP.ThrowAdivce"></bean>
+
+
+    <!--配置spring的代理对象  -->
+    <bean id="proxyFactoryBean" class="org.springframework.aop.framework.ProxyFactoryBean">
+
+        <property name="proxyInterfaces">
+            <list>
+                <value>com.zjj.testAOP.ServiceTarget</value>
+            </list>
+        </property>
+
+        <property name="interceptorNames">
+
+            <list>
+                <value>beforeAdvice</value>
+                <value>afterAdvice</value>
+                <value>aroundAdivce</value>
+                <value>throwAdivce</value>
+            </list>
+        </property>
+        <property name="target" ref="serviceTargetImpl"></property>
+    </bean>
+
+
+
+
+
+</beans>

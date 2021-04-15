@@ -23,6 +23,7 @@
     <file url="file://$PROJECT_DIR$/mybatis/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/mybatis/src/main/resources/SqlMapConfig.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/mybatis/src/main/resources/log4j.properties" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/mybatis/src/main/resources/mySqlMapConfig.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/mybatis/src/test/java/Test.java" charset="UTF-8" />
     <file url="PROJECT" charset="GBK" />
   </component>

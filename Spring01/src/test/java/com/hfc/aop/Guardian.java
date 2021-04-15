@@ -5,7 +5,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
-///*这个是一个我们的切面类； 只要你的猴子跑到院子中来偷桃子；就会触发事件*/
+/*这个是一个我们的切面类； 只要你的猴子跑到院子中来偷桃子；就会触发事件*/
 
 @Aspect   //只要你在类上写这个注解； 这个类是一个切面类
 public class Guardian {
@@ -24,7 +24,4 @@ public class Guardian {
     public void foundAfter(String name ) {
         System.out.println("小猴子已经被抓住 了，他的名字叫："+name);
     }
-
-
-
 }

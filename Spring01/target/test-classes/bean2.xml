@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+    <bean id="student" class="com.zjj.entry.Student">
+        <property name="sid" value="01"></property>
+        <property name="SAddress" value="张家界"></property>
+        <property name="sname" value="李四"></property>
+    </bean>
+    <bean id="teacher01" class="com.zjj.entry.Teacher" autowire="byName">
+        <property name="tid" value="01"></property>
+        <property name="TAddress" value="张家界"></property>
+        <property name="tname" value="张无忌"></property>
+<!--        <property name="student" ref="student01"></property>-->
+    </bean>
+
+    <bean id="teacher02" class="com.zjj.entry.Teacher" autowire="byType">
+        <property name="tid" value="02"></property>
+        <property name="TAddress" value="张家界"></property>
+        <property name="tname" value="赵敏"></property>
+        <!--        <property name="student" ref="student01"></property>-->
+    </bean>
+    <!-- 引入外部数据库的配置文件 -->
+    <context:property-placeholder location="classpath:db.properties" />
+
+    <bean id="dbutils01" class="com.zjj.entry.Dbutils">
+        <property name="driver"><value>${driver}</value></property>
+        <property name="url"><value>${url}</value></property>
+        <property name="username"><value>${user}</value></property>
+        <property name="password"><value>${password}</value></property>
+    </bean>
+</beans>

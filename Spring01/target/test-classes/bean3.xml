@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:component-scan base-package="com.zjj.entry"></context:component-scan>
+    <bean id="airplane1" class="com.zjj.entry.airplane">
+        <property name="name" value="轰炸机1"></property>
+        <property name="id" value="001"></property>
+    </bean>
+    <bean id="airplane2" class="com.zjj.entry.airplane">
+        <property name="name" value="轰炸机2"></property>
+        <property name="id" value="002"></property>
+    </bean>
+    <bean id="airplane3" class="com.zjj.entry.airplane">
+        <property name="name" value="轰炸机3"></property>
+        <property name="id" value="003"></property>
+    </bean>
+
+    <bean id="airplanes1" class="com.zjj.entry.airplanes">
+        <property name="id" value="01"></property>
+        <property name="airplane">
+            <array>
+                <ref bean="airplane1"></ref>
+                <ref bean="airplane2"></ref>
+                <ref bean="airplane3"></ref>
+            </array>
+        </property>
+        <property name="list">
+            <list>
+                <ref bean="airplane1"></ref>
+                <ref bean="airplane2"></ref>
+                <ref bean="airplane3"></ref>
+                <value>123123</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="airplane01" class="com.zjj.entry.airplane">
+        <property name="maps" >
+         <map>
+             <entry key="01" value="china"></entry>
+             <entry key="02" value="america"></entry>
+             <entry key="03" value="france"></entry>
+             <entry key="04" value="japan"></entry>
+         </map>
+        </property>
+    </bean>
+    <bean id="airplane02" class="com.zjj.entry.airplane">
+        <property name="set">
+            <list>
+                <value>124324234523</value>
+                <value>111111</value>
+                <value>111sdfsd</value>
+                <value>111111</value>
+            </list>
+        </property>
+    </bean>
+</beans>

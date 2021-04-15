@@ -10,10 +10,10 @@ public class Test {
 		ApplicationContext applicationContext=new ClassPathXmlApplicationContext("JDBC.xml");
 		Service serviceImpl=applicationContext.getBean("serviceImpl", Service.class);
 //		serviceImpl.addStu();
-
+//
 //		serviceImpl.selectStu();
 		
-//		serviceImpl.delStu();
+		serviceImpl.delStu();
 //		serviceImpl.upStu();
 		
 	}
